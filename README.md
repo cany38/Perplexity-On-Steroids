@@ -4,19 +4,19 @@ A custom MCP connector that lets Perplexity work on your own computer. It can re
 
 Nothing changes on your computer behind your back. Before Perplexity creates, edits or deletes anything or runs a command, it shows you the exact call in the chat and waits for your "yes". The local panel is a second check. Depending on the permission level you pick, the same change also waits there for "Allow". The tools can only reach the folders you approved.
 
-<p align="center"><img src="docs/perplexity-chat.png" alt="Perplexity shows the call and waits for yes before creating a folder and a file" width="560"></p>
+<p align="center"><img src="screenshots/perplexity-chat.png" alt="Perplexity shows the call and waits for yes before creating a folder and a file" width="560"></p>
 
 Perplexity reaches the server over a small relay on your own free Cloudflare account, so the connector URL never changes. There is no browser extension and no chat scraping.
 
-![The local panel](docs/panel.png)
+![The local panel](screenshots/panel.png)
 
 Custom connectors need Perplexity Pro or Max.
 
 ## Getting started
 
-You need Node.js 18 or newer. Run `start.bat` (or run `npm install` and `npm start`) and the panel opens in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity. `stop.bat` stops the server, and the log is in `%TEMP%\pos-mcp.log`.
+Run `start.bat` and the panel opens in your browser and run `stop.bat` to stop the server. The "How to connect" guide in the panel walks you through the permanent address and adding the connector in Perplexity.
 
-The connector URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
+You need Node.js 18 or newer. If you don't have it, run `setup.bat` first. It installs Node.js and the packages the project needs.
 
 ## Permissions
 
@@ -49,6 +49,7 @@ A request nobody answers within 90 seconds is denied. The Access card in the pan
 
 ## Security
 
+- The connector URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
 - File tools only reach the approved folders, and paths are resolved with `realpath`, so a link pointing outside is refused. This is not an OS sandbox.
 - Shell commands run with your user's permissions. The approved folders only set where a command starts, so keep commands on "ask" unless you need them.
 - The check for destructive commands is a heuristic. A command it does not flag is not guaranteed safe.
