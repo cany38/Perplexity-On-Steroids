@@ -36,8 +36,6 @@ There are two checks before anything changes.
 
 A request nobody answers within 90 seconds is denied. The Access card in the panel sets which folders the tools can reach.
 
-The read tools are marked as read only for Perplexity, and the server tells the model that you approve its calls in advance. After an update, remove the connector and add it again once, because Perplexity caches the tool list.
-
 ## Tools
 
 | Tool | What it does |
