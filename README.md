@@ -14,7 +14,7 @@ Custom connectors need Perplexity Pro or Max.
 
 ## Getting started
 
-You need Node.js 18 or newer. Double-click `start.bat` (or run `npm install` and `npm start`) and the panel opens in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity.
+You need Node.js 18 or newer. Double-click `start.bat` (or run `npm install` and `npm start`) and the panel opens in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity. `stop.bat` stops the server, and the log is in `%TEMP%\pos-mcp.log`.
 
 The connector URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
 
@@ -69,16 +69,6 @@ Settings live in `bridge/config.json` and can be changed from the panel. The sec
 | `POS_CONFIG` | `bridge/config.json` | config file path |
 | `POS_NO_OPEN` | unset | `1` keeps the panel from opening a tab |
 
-## Troubleshooting
-
-- If Add fails with "Server does not support automatic registration", Authentication is on OAuth. Set it to None under Advanced.
-- If Perplexity cannot validate the connector, the server is not running or the relay is offline. Start it with `start.bat` and check the panel.
-- If a tool comes back as unknown, remove and re-add the connector.
-- If the panel says it needs a key, open it from `start.bat` or from the URL in `%TEMP%\pos-panel.url`.
-- If the server does not start, see `%TEMP%\pos-mcp.log`. Port 8857 may be taken by another program.
-
-Run `npm run verify` to check the syntax, run the unit tests and do an MCP handshake against the running server. `stop.bat` stops the server.
-
 ## License
 
-PolyForm Strict 1.0.0. See [LICENSE](LICENSE). You may download and use the software for personal and other noncommercial purposes. You may not change it, build on it, share copies of it, sell it or use it commercially.
+PolyForm Strict 1.0.0. See [LICENSE.md](LICENSE.md). You may download and use the software for personal and other noncommercial purposes. You may not change it, build on it, share copies of it, sell it or use it commercially.
