@@ -14,7 +14,7 @@ Custom connectors need Perplexity Pro or Max.
 
 ## Getting started
 
-You need Node.js 18 or newer. Double-click `start.bat` (or run `npm install` and `npm start`) and the panel opens in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity. `stop.bat` stops the server, and the log is in `%TEMP%\pos-mcp.log`.
+You need Node.js 18 or newer. Run `start.bat` (or run `npm install` and `npm start`) and the panel opens in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity. `stop.bat` stops the server, and the log is in `%TEMP%\pos-mcp.log`.
 
 The connector URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
 
@@ -27,16 +27,16 @@ There are two checks before anything changes.
 
 | Level | Reads | Writes | Commands | Deletes, destructive commands |
 | --- | --- | --- | --- | --- |
-| Read-only | yes | no | no | no |
+| Read only | yes | no | no | no |
 | Files only | yes | ask | no | ask |
 | Ask every time | yes | ask | ask | ask |
 | Approve writes automatically | yes | auto | ask | ask |
-| Auto-run unflagged commands | yes | auto | auto | ask |
+| Auto run unflagged commands | yes | auto | auto | ask |
 | No restrictions | yes | auto | auto | auto |
 
 A request nobody answers within 90 seconds is denied. The Access card in the panel sets which folders the tools can reach.
 
-The read tools are marked read-only for Perplexity, and the server tells the model that you approve its calls in advance. After an update, remove and re-add the connector once, because Perplexity caches the tool list.
+The read tools are marked as read only for Perplexity, and the server tells the model that you approve its calls in advance. After an update, remove the connector and add it again once, because Perplexity caches the tool list.
 
 ## Tools
 
@@ -53,7 +53,7 @@ The read tools are marked read-only for Perplexity, and the server tells the mod
 
 - File tools only reach the approved folders, and paths are resolved with `realpath`, so a link pointing outside is refused. This is not an OS sandbox.
 - Shell commands run with your user's permissions. The approved folders only set where a command starts, so keep commands on "ask" unless you need them.
-- The destructive-command check is a heuristic. A command it does not flag is not guaranteed safe.
+- The check for destructive commands is a heuristic. A command it does not flag is not guaranteed safe.
 - The panel listens on `127.0.0.1` only and needs the key in its URL. It can widen access, so treat that URL like a password too.
 - The relay runs in your own Cloudflare account and stores only a hash of the secret. Set `POS_TOKEN` to also require `Authorization: Bearer <token>`.
 
