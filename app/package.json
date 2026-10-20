@@ -1,0 +1,37 @@
+{
+  "name": "perplexity-on-steroids",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Perplexity Custom MCP Connector for local filesystem access over Streamable HTTP",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": "Can YILDIZ",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cany38/Perplexity-On-Steroids.git"
+  },
+  "keywords": [
+    "perplexity",
+    "mcp",
+    "model-context-protocol",
+    "agent",
+    "bridge",
+    "streamable-http"
+  ],
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "start:fg": "node bridge/mcp-http.mjs",
+    "check": "node --check bridge/tools.mjs && node --check bridge/runtime.mjs && node --check bridge/panel.mjs && node --check bridge/mcp-http.mjs && node --check bridge/approvals.mjs && node --check bridge/relay.mjs && node --check bridge/relaySetup.mjs && node --check bridge/tunnel.mjs && node --check relay/worker.mjs && node --check scripts/start.mjs && node --check panel/app.js",
+    "test": "node tests/tools.test.mjs && node tests/runtime.test.mjs",
+    "smoke": "node tests/mcp-smoke.mjs",
+    "verify": "npm run check && npm run test && npm run smoke"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "ws": "^8.22.0",
+    "zod": "^4.6.7"
+  }
+}
