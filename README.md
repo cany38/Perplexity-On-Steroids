@@ -12,23 +12,11 @@ Perplexity reaches the server over a small relay on your own free Cloudflare acc
 
 Custom connectors need Perplexity Pro or Max.
 
-## Setup
+## Getting started
 
-You need Node.js 18 or newer.
+You need Node.js 18 or newer. Double-click `start.bat` (or run `npm install` and `npm start`) and the panel opens in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity.
 
-1. Double-click `start.bat` (or run `npm install` and `npm start`). The server starts in the background and the panel opens in your browser.
-2. In the panel, press "Get a permanent address". A Cloudflare page opens. Sign in or create a free account, then press "Allow". The panel deploys the relay and shows your connector URL with a "Permanent" badge.
-3. Press "Copy URL".
-4. In Perplexity, open Customize > Connectors and press Add custom > Connector > Add MCP connector. Give it a name and paste the URL.
-5. **Open "Advanced" and set "Authentication" to "None".** Leave Transport on Streamable HTTP.
-6. Tick the risk box and press "Add".
-
-> [!IMPORTANT]
-> Perplexity picks OAuth by default. With OAuth, Add fails with `[API_CLIENTS_ERROR] Server does not support automatic registration`. Set Authentication to None.
-
-Try it in a chat with "Run the pos_ping tool" or "What's on my Desktop?". The panel switches to "Perplexity connected" once the first call arrives. The "How to connect" button in the panel walks through the same steps.
-
-The URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
+The connector URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
 
 ## Permissions
 
@@ -48,7 +36,7 @@ There are two checks before anything changes.
 
 A request nobody answers within 90 seconds is denied. The Access card in the panel sets which folders the tools can reach.
 
-The read tools are marked read-only for Perplexity. If it still asks before every small step, even a directory listing, [PROMPT.md](PROMPT.md) tells it you approve in advance. Paste it at the start of a chat or into a Space's instructions. After an update, remove and re-add the connector once, because Perplexity caches the tool list.
+The read tools are marked read-only for Perplexity, and the server tells the model that you approve its calls in advance. After an update, remove and re-add the connector once, because Perplexity caches the tool list.
 
 ## Tools
 
@@ -93,4 +81,4 @@ Run `npm run verify` to check the syntax, run the unit tests and do an MCP hands
 
 ## License
 
-MIT
+PolyForm Strict 1.0.0. See [LICENSE](LICENSE). You may download and use the software for personal and other noncommercial purposes. You may not change it, build on it, share copies of it, sell it or use it commercially.
