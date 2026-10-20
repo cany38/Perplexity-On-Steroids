@@ -66,3 +66,7 @@ A request nobody answers within 90 seconds is denied. The Access card in the pan
 ## License
 
 PolyForm Strict 1.0.0. See [LICENSE.md](LICENSE.md). You may download and use the software for personal and other noncommercial purposes. You may not change it, build on it, share copies of it, sell it or use it commercially.
+
+## About
+
+Some parts of this project were made with help from AI tools. I guided and checked all of the work and made every final decision.
