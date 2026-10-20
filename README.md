@@ -1,4 +1,4 @@
-# Perplexity On Steroids
+# Perplexity On Steroids ✳️
 
 A custom MCP connector that lets Perplexity work on your own computer: read and search files, write and edit them, and run shell commands.
 
