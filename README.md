@@ -8,7 +8,7 @@ Everything runs on your computer and on your own Cloudflare account. We have no 
 A custom MCP connector that lets Perplexity work on your own computer. It can read and search files, write and edit them, and run shell commands.
 
 Before Perplexity creates, edits or deletes anything or runs a command, it shows you the exact call in the chat and waits for your "yes". 
-The local panel is a second check. Depending on your permission level, the change waits there for "Allow". 
+The local panel is a second check. Depending on your selected permission level, the change waits there for "Allow". 
 The tools can only reach the folders you approved.
 
 <p align="center"><img src="screenshots/perplexity-chat.png" alt="Perplexity shows the call and waits for yes before creating a folder and a file" width="560"></p>
