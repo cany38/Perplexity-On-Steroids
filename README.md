@@ -1,8 +1,15 @@
 # Perplexity On Steroids ✳️
 
+> [!NOTE]
+> This project is not affiliated with or endorsed by Perplexity. It works through Perplexity's own custom connector feature, the same way any connector you add in Perplexity's settings does. It does not scrape the website, automate the Perplexity interface or touch your login, so it does not work around Perplexity's terms of service. Using an official feature the way it was built is not a reason for an account ban, although only Perplexity decides how it enforces its own terms.
+>
+> Everything runs on your own computer. The server, the panel and the call log stay local, and the relay that carries the traffic runs on your own Cloudflare account. There is no server of ours in between and no telemetry. Your chats stay in your Perplexity account as usual, and the connector never reads them. A file leaves your computer only when the agent reads it in a chat you started, and then it goes to Perplexity as part of that chat.
+
 A custom MCP connector that lets Perplexity work on your own computer. It can read and search files, write and edit them, and run shell commands.
 
-Nothing changes on your computer behind your back. Before Perplexity creates, edits or deletes anything or runs a command, it shows you the exact call in the chat and waits for your "yes". The local panel is a second check. Depending on the permission level you pick, the same change also waits there for "Allow". The tools can only reach the folders you approved.
+Nothing changes on your computer behind your back. Before Perplexity creates, edits or deletes anything or runs a command, it shows you the exact call in the chat and waits for your "yes". 
+The local panel is a second check. Depending on your permission level, the change waits there for "Allow". 
+**The tools can only reach the folders you approved.**
 
 <p align="center"><img src="screenshots/perplexity-chat.png" alt="Perplexity shows the call and waits for yes before creating a folder and a file" width="560"></p>
 
@@ -43,7 +50,7 @@ A request nobody answers within 90 seconds is denied. The Access card in the pan
 | `pos_ping`, `pos_list_dir`, `pos_read_file`, `pos_search` | read and search |
 | `pos_write_file`, `pos_edit_file`, `pos_copy_file`, `pos_move_file`, `pos_make_dir` | change files |
 | `pos_delete_file` | delete a file or folder |
-| `pos_exec_command` | run a shell command (`cmd.exe` on Windows) |
+| `pos_exec_command` | run a shell command |
 | `pos_batch` | run up to 20 calls in one request |
 | `pos_list_sessions`, `pos_session_log` | read the call history |
 
