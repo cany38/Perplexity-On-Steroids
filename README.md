@@ -57,18 +57,6 @@ The read tools are marked as read only for Perplexity, and the server tells the 
 - The panel listens on `127.0.0.1` only and needs the key in its URL. It can widen access, so treat that URL like a password too.
 - The relay runs in your own Cloudflare account and stores only a hash of the secret. Set `POS_TOKEN` to also require `Authorization: Bearer <token>`.
 
-## Configuration
-
-Settings live in `bridge/config.json` and can be changed from the panel. The secret and relay URL are kept in `%USERPROFILE%\.perplexity-on-steroids\state.json`, and every call is logged to `calls.jsonl` next to it.
-
-| Variable | Default | Meaning |
-| --- | --- | --- |
-| `POS_PORT` | `8857` | MCP port |
-| `POS_PANEL_PORT` | `8859` | panel port |
-| `POS_TOKEN` | unset | require a bearer token |
-| `POS_CONFIG` | `bridge/config.json` | config file path |
-| `POS_NO_OPEN` | unset | `1` keeps the panel from opening a tab |
-
 ## License
 
 PolyForm Strict 1.0.0. See [LICENSE.md](LICENSE.md). You may download and use the software for personal and other noncommercial purposes. You may not change it, build on it, share copies of it, sell it or use it commercially.
