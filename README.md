@@ -4,6 +4,7 @@
 > This project uses Perplexity’s official connector feature. It follows Perplexity’s rules and should not get your account banned.
 >
 > Everything runs on your computer and on your own Cloudflare account. We have no server and we don't collect data. Perplexity sees a file only when the agent reads it in your chat.
+> Please read this document carefully to set correctly.
 
 A custom MCP connector that lets Perplexity work on your own computer. It can read and search files, write and edit them, and run shell commands.
 
@@ -21,9 +22,17 @@ Custom connectors need Perplexity Pro or Max.
 
 ## Getting started
 
-Run `start.bat` and the panel opens in your browser and run `stop.bat` to stop the server. The "How to connect" guide in the panel walks you through the permanent address and adding the connector in Perplexity.
+Open the folder for your system and use its three files.
 
-You need Node.js 18 or newer. If you don't have it, run `setup.bat` first. It installs Node.js and the packages the project needs.
+| Folder | First time | Start | Stop |
+| --- | --- | --- | --- |
+| `For-Windows` | `setup.bat` | `start.bat` | `stop.bat` |
+| `For-macOS` | `setup.command` | `start.command` | `stop.command` |
+| `For-Linux` | `bash setup.sh` | `bash start.sh` | `bash stop.sh` |
+
+Setup installs Node.js 18 or newer if you don't have it, then the packages the project needs. Start opens the panel in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity.
+
+On a Mac, run `chmod +x For-macOS/*.command` once in Terminal first, because the files on GitHub do not carry their run permission. If macOS blocks a file, right click it and choose Open. Mac and Linux support is new and not tested yet.
 
 ## Permissions
 
