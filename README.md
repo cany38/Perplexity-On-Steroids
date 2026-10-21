@@ -4,7 +4,8 @@
 > This project uses Perplexity’s official connector feature. It follows Perplexity’s rules and should not get your account banned.
 >
 > Everything runs on your computer and on your own Cloudflare account. We have no server and we don't collect data. Perplexity sees a file only when the agent reads it in your chat.
-> Please read this document carefully to set correctly.
+> 
+> **Please read this document carefully to set correctly.**
 
 A custom MCP connector that lets Perplexity work on your own computer. It can read and search files, write and edit them, and run shell commands.
 
