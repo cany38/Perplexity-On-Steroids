@@ -1,0 +1,6 @@
+{
+  "maxOutputBytes": 200000,
+  "execTimeoutMs": 120000,
+  "tunnel": "auto",
+  "publicUrl": ""
+}

@@ -1,0 +1,174 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perplexity On Steroids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Text:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app" hidden>
+  <header class="top" id="top">
+    <div class="wordmark">Perplexity On Steroids</div>
+    <div class="clock" aria-hidden="true"><span class="flaps" id="clock"></span></div>
+    <div class="conn" aria-live="polite">
+      <span class="state"><span class="lamp" id="lamp"></span><span id="connState">Connecting</span></span>
+      <span class="meta" id="connMeta"></span>
+      <button type="button" class="guide-btn" id="guideBtn">How to connect</button>
+    </div>
+    <div class="counts" aria-label="Today's totals">
+      <div data-tone="all"><span class="flaps" id="nCalls"></span><small>Calls today</small></div>
+      <div data-tone="ok"><span class="flaps" id="nOk"></span><small>Done</small></div>
+      <div data-tone="no"><span class="flaps" id="nNo"></span><small>Errors</small></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main class="main">
+      <section class="mcp" aria-labelledby="mcpH">
+        <div class="mcp-h">
+          <h2 id="mcpH">Connector URL</h2>
+          <span class="chip" id="mcpState">Waiting for tunnel</span>
+        </div>
+        <p class="mcp-how">In Perplexity open <b>Customize &gt; Connectors</b> (or <b>Plugins</b>), press <b>Add custom &gt; Connector</b>, paste this URL, choose <b>Streamable HTTP</b>, and acknowledge the risk. Perplexity validates the connector by calling <b>pos_ping</b>. The URL contains a secret key, so treat it like a password.</p>
+        <div class="mcp-row">
+          <code id="mcpUrl" class="mcp-url none">The permanent URL appears here after Cloudflare setup.</code>
+          <button type="button" class="btn light" id="mcpCopy" disabled>Copy URL</button>
+        </div>
+        <div class="mcp-foot">
+          <a href="https://www.perplexity.ai/computer/connectors" target="_blank" rel="noopener noreferrer">Open Perplexity connectors</a>
+          <span id="mcpNote"></span>
+        </div>
+        <div class="perm" id="perm" hidden>
+          <div class="perm-row">
+            <button type="button" class="btn sm light" id="permBtn">Get a permanent address</button>
+            <span class="perm-msg" id="permMsg">One sign-in to a free Cloudflare account, and the URL never changes again.</span>
+          </div>
+          <p class="perm-link" id="permLink" hidden>Didn't open? <a id="permHref" href="#" target="_blank" rel="noopener noreferrer">Open the Cloudflare sign-in page</a></p>
+        </div>
+      </section>
+
+      <section class="setup" id="setup" aria-labelledby="setupH">
+        <h2 id="setupH">Connect Perplexity</h2>
+        <ol>
+          <li><span class="n">1</span><b>Get the connector URL</b><span class="chip" data-tone="wait" id="s1">Next</span><p id="s1p">Set up the permanent Cloudflare address once.</p></li>
+          <li><span class="n">2</span><b>Add the connector</b><span class="chip" id="s2">Waiting</span><p>Customize &gt; Connectors &gt; Add custom &gt; Connector. Paste the URL from above, pick Streamable HTTP, acknowledge the risk, then press Add.</p></li>
+          <li><span class="n">3</span><b>Try it in a chat</b><span class="chip" id="s3">Waiting</span><p>Ask "What's in this folder?" or "Run the pos_ping tool". This step completes on its own once a request arrives.</p></li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="boardH">
+        <div class="head">
+          <h2 id="boardH">Activity</h2>
+          <div class="filters" role="group" aria-label="Filter activity">
+            <button type="button" data-f="all" aria-pressed="true">All</button>
+            <button type="button" data-f="read" aria-pressed="false">Reads</button>
+            <button type="button" data-f="write" aria-pressed="false">Writes</button>
+            <button type="button" data-f="exec" aria-pressed="false">Commands</button>
+            <button type="button" data-f="error" aria-pressed="false">Errors</button>
+          </div>
+        </div>
+        <table class="board">
+          <colgroup><col class="c-time"><col class="c-kind"><col class="c-verb"><col><col class="c-st"><col class="c-ms"></colgroup>
+          <thead><tr>
+            <th scope="col">Time</th><th scope="col" class="kind">Kind</th><th scope="col" class="verb">Action</th>
+            <th scope="col">Target</th><th scope="col">Status</th><th scope="col" class="ms">Ms</th>
+          </tr></thead>
+          <tbody id="board"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <aside class="side">
+      <section class="blk" aria-labelledby="cH">
+        <h2 id="cH">Connection</h2>
+        <dl class="kv">
+          <dt>Server</dt><dd id="kSrv">running</dd>
+          <dt>Tunnel</dt><dd id="kTun">checking</dd>
+          <dt>Perplexity</dt><dd id="kCli">no request yet</dd>
+          <dt>Auth</dt><dd id="kAuth">none</dd>
+          <dt>Endpoint</dt><dd id="kEnd" class="mono">127.0.0.1:8857/mcp/&lt;secret&gt;</dd>
+        </dl>
+        <div class="acts-side">
+          <a href="https://www.perplexity.ai/computer/connectors" target="_blank" rel="noopener noreferrer">Open Perplexity connectors</a>
+          <button type="button" class="linkbtn" id="restart">Restart tunnel</button>
+          <button type="button" class="linkbtn" id="rotate">Rotate address</button>
+        </div>
+        <p class="warn" id="tunErr" hidden></p>
+        <p class="warn">The permanent address only changes when you rotate it. If it leaks, rotate and paste the new URL into Perplexity.</p>
+      </section>
+
+      <p class="files" id="files"></p>
+    </aside>
+  </div>
+</div>
+
+<div class="gate" id="gate" hidden>
+  <h1>Panel key required</h1>
+  <p>Open this panel with the address the server printed in the console (.../#k=...). The browser opens it for you when the server starts.</p>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog class="guide" id="guide" aria-labelledby="guideH">
+  <div class="guide-head">
+    <h2 id="guideH">How to connect Perplexity</h2>
+    <button type="button" class="guide-x" id="guideClose" aria-label="Close the guide">x</button>
+  </div>
+  <p class="guide-lead">About two minutes, once. After that this panel only shows what Perplexity does on this computer.</p>
+
+  <ol class="gsteps">
+    <li id="g1">
+      <h3>Copy your connector URL</h3>
+      <p>This is the address Perplexity uses to reach this computer. It contains a secret key, so treat it like a password.</p>
+      <div class="g-url"><code id="gUrl">The URL appears here after Cloudflare setup.</code><button type="button" class="btn sm light" id="gCopy" disabled>Copy URL</button></div>
+    </li>
+    <li id="g2">
+      <h3>Add it in Perplexity</h3>
+      <ol class="gsub">
+        <li><a href="https://www.perplexity.ai/computer/connectors" target="_blank" rel="noopener noreferrer">Open Perplexity, then Customize &gt; Connectors</a> (or the Plugins page).</li>
+        <li>Press <b>Add custom &gt; Connector</b>, then <b>Add MCP connector</b>.</li>
+        <li><b>Name:</b> Perplexity On Steroids. <b>MCP Server URL:</b> paste the address you copied.</li>
+        <li>Open <b>Advanced</b>. <b>Authentication: None</b> (see the red note below). <b>Transport:</b> Streamable HTTP.</li>
+        <li>Acknowledge the risk and press <b>Add</b>. Perplexity validates the connector by calling <code>pos_ping</code>.</li>
+      </ol>
+      <div class="g-must" role="note">
+        <b>Important: open Advanced and set Authentication to <span class="auth-choice">None</span>.</b>
+        Perplexity picks <span class="auth-choice">OAuth</span> by default, and with <span class="auth-choice">OAuth</span> the connector fails with
+        <code>[API_CLIENTS_ERROR] Server does not support automatic registration</code>.
+        Leave Client ID and Client Secret empty. (Pick API Key only when you started the server with <code>POS_TOKEN</code>.)
+      </div>
+      <figure style="margin: 16px 0 0; max-width: 64ch;">
+        <img src="data:image/webp;base64,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" alt="Perplexity Add MCP connector: Advanced Authentication menu with OAuth, API Key and None options, Streamable HTTP transport and Public network access." width="640" height="587" loading="lazy" style="display: block; width: 100%; height: auto; border: 2px solid var(--line-2); border-radius: var(--r);">
+        <figcaption style="margin-top: 8px; color: var(--white); font-size: 13px;">Open Advanced and choose Authentication: <span style="color: #ff8a00; font-weight: 700;">None</span>. Keep Transport: Streamable HTTP and Network access: Public.</figcaption>
+      </figure>
+    </li>
+    <li id="g3">
+      <h3>Try it in a chat</h3>
+      <p>Start a chat and ask: <i>What's in C:\Users\me\Desktop?</i> or <i>Run the pos_ping tool.</i> The activity table fills as calls arrive, and the top of the panel turns to <b>Perplexity connected</b>.</p>
+    </li>
+    <li id="g4">
+      <h3>Day to day</h3>
+      <ul class="gsub">
+        <li>Keep the server open. The Cloudflare relay reconnects on its own after a restart.</li>
+        <li>Writes, deletes and commands run right away, anywhere your user account can reach. Each call lands under <b>Activity</b>.</li>
+      </ul>
+    </li>
+    <li id="g5">
+      <h3>If something is off</h3>
+      <ul class="gsub">
+        <li><b>"Server does not support automatic registration":</b> Authentication is on OAuth. Open Advanced and set it to None.</li>
+        <li><b>Perplexity cannot validate the connector:</b> the relay is offline. Press Restart tunnel and check the panel.</li>
+        <li><b>Connector offline in Perplexity:</b> start this server, then try again. The URL stays the same.</li>
+        <li><b>401:</b> the server has <code>POS_TOKEN</code> set but the connector has no API key or the wrong one.</li>
+        <li><b>Unknown tool:</b> remove and re-add the connector, Perplexity caches the tool list.</li>
+      </ul>
+    </li>
+  </ol>
+</dialog>
+
+<script src="/app.js"></script>
+</body>
+</html>
