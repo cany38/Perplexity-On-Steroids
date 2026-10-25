@@ -4,12 +4,11 @@ You are helping a person install and run Perplexity On Steroids on their own com
 
 ## What it is
 
-A local MCP server that Perplexity reaches through the person's own Cloudflare relay. It gives Perplexity file and shell tools. A local panel shows every call and holds risky ones for approval.
+A local MCP server that Perplexity reaches through the person's own Cloudflare relay. It gives Perplexity file and shell tools with no folder limit and no approval step. A local panel shows every call.
 
 ## Ground rules
 
 - Do not edit anything in `app/`. The license forbids changes, and the person needs the code as published.
-- Do not loosen the permission level or add approved folders unless the person asks for that exact change in their own words. Never approve a whole drive such as `C:\` or `/`.
 - Never paste the connector URL, the panel URL with its `#k=` key, or anything from `state.json` into a chat, an issue or a log. They work like passwords. If one leaks, the person presses "Rotate address" in the panel.
 - Do not sign in to Cloudflare or Perplexity for the person, and do not type passwords. Tell them what to click.
 - Do not delete `~/.perplexity-on-steroids`. It holds the permanent address, and deleting it means setting up the relay again.
@@ -24,7 +23,7 @@ Use the folder for the person's system, in this order.
 | macOS | `For-macOS/setup.command` | `For-macOS/start.command` | `For-macOS/stop.command` |
 | Linux | `bash For-Linux/setup.sh` | `bash For-Linux/start.sh` | `bash For-Linux/stop.sh` |
 
-On macOS, run `chmod +x For-macOS/*.command` once first. Setup needs Node.js 18 or newer and installs it when it can. Start runs the server in the background and opens the panel.
+On macOS, run `chmod +x For-macOS/*.command` once first. Setup installs Node.js, or updates it to the newest patched release from nodejs.org. Run it again after a Node.js security release. Start runs the server in the background and opens the panel.
 
 ## Connect Perplexity
 
