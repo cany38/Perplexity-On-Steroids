@@ -9,9 +9,8 @@
 
 A custom MCP connector that lets Perplexity work on your own computer. It can read and search files, write and edit them, and run shell commands.
 
-Before Perplexity creates, edits or deletes anything or runs a command, it shows you the exact call in the chat and waits for your "yes". 
-The local panel is a second check. Depending on your selected permission level, the change waits there for "Allow". 
-The tools can only reach the folders you approved.
+Every call runs right away with your user's rights, on any folder your account can reach.
+A local panel shows each call as it happens.
 
 <p align="center"><img src="screenshots/perplexity-chat.png" alt="Perplexity shows the call and waits for yes before creating a folder and a file" width="560"></p>
 
@@ -31,27 +30,13 @@ Open the folder for your system and use its three files.
 | `For-macOS` | `setup.command` | `start.command` | `stop.command` |
 | `For-Linux` | `bash setup.sh` | `bash start.sh` | `bash stop.sh` |
 
-Setup installs Node.js 18 or newer if you don't have it, then the packages the project needs. Start opens the panel in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity.
+Setup installs Node.js, or updates it to the newest patched release from nodejs.org, then the packages the project needs. Run it again any time to pick up Node.js security releases. Start opens the panel in your browser. Its "How to connect" guide walks you through the permanent address and adding the connector in Perplexity.
 
 On a Mac, run `chmod +x For-macOS/*.command` once in Terminal first, because the files on GitHub do not carry their run permission. If macOS blocks a file, right click it and choose Open. Mac and Linux support is new and not tested yet.
 
 ## Permissions
 
-There are two checks before anything changes.
-
-1. Perplexity asks "Reply yes to proceed" in the chat before each change and shows the call it is about to make. That is Perplexity's own rule, and the connector cannot turn it off.
-2. The local panel can hold the same change for your approval. The permission level decides what waits there.
-
-| Level | Reads | Writes | Commands | Deletes, destructive commands |
-| --- | --- | --- | --- | --- |
-| Read only | yes | no | no | no |
-| Files only | yes | ask | no | ask |
-| Ask every time | yes | ask | ask | ask |
-| Approve writes automatically | yes | auto | ask | ask |
-| Auto run unflagged commands | yes | auto | auto | ask |
-| No restrictions | yes | auto | auto | auto |
-
-A request nobody answers within 90 seconds is denied. The Access card in the panel sets which folders the tools can reach.
+Perplexity may ask "Reply yes to proceed" in the chat before a change. That is Perplexity's own rule, and the connector cannot turn it off. The connector itself asks nothing and has no folder limit. A path without a folder starts from your home folder.
 
 ## Tools
 
@@ -67,10 +52,8 @@ A request nobody answers within 90 seconds is denied. The Access card in the pan
 ## Security
 
 - The connector URL contains a secret, so treat it like a password. If it leaks, press "Rotate address" and paste the new URL into Perplexity.
-- File tools only reach the approved folders, and paths are resolved with `realpath`, so a link pointing outside is refused. This is not an OS sandbox.
-- Shell commands run with your user's permissions. The approved folders only set where a command starts, so keep commands on "ask" unless you need them.
-- The check for destructive commands is a heuristic. A command it does not flag is not guaranteed safe.
-- The panel listens on `127.0.0.1` only and needs the key in its URL. It can widen access, so treat that URL like a password too.
+- Anyone with the URL can read, change and delete your files and run commands as your user, with nothing to stop them.
+- The panel listens on `127.0.0.1` only and needs the key in its URL.
 - The relay runs in your own Cloudflare account and stores only a hash of the secret. Set `POS_TOKEN` to also require `Authorization: Bearer <token>`.
 
 ## License
